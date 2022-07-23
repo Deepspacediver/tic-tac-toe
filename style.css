@@ -12,16 +12,15 @@ html{
 .game-container{
     border: 1px solid red;
     display: flex;
-    width: 30vw;
-    height: 30vw;
+    max-width: 30vw;
+    height: 60vh;
     margin: 0 auto;
-
     flex-wrap: wrap;
 }
 
 .game-tile{
     display: flex;
     border: 1px solid black;
-    flex: 1 0 33%;
-    height: auto;
+    flex: 1 1 33%;
+    min-height: 33%;
 }
