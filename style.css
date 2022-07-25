@@ -24,3 +24,14 @@ html{
     flex: 1 1 33%;
     min-height: 33%;
 }
+
+button{
+    width: 5vw;
+    height: 5vh;
+}
+button:hover{
+    border: 1px solid red;
+}
+button:focus{
+    border: 5px solid red;
+}
