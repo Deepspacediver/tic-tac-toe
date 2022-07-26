@@ -10,4 +10,23 @@ Game Start
 Game next
     if last Array item is X then playerO plays
     if last Array item is O then playerX plays
-    
+   
+
+    012
+    345
+    678
+
+    036
+    147
+    258
+
+    048
+    246
+
+
+    get [i] of Xs in array and store in array
+    get [i] of Os in array and store in array
+
+    if Xs in array === winCombs - Xs win
+
+    if Os in array === winCombs - Os win

@@ -36,14 +36,14 @@ const gameBoard = (() => {
                 if(!!e.target.innerText) return;
                 if(playerTurn === 'X') {
                     e.target.innerText =`${playerTurn}`
-                    gameBoard.gameArray[e.target.dataset.index]=`${playerTurn}`
+                    gameArray[e.target.dataset.index]=`${playerTurn}`
 
-                    console.log(gameBoard.gameArray)
+                    console.log(gameArray)
                 }
                 else if(playerTurn === 'O'){
                     e.target.innerText = `${playerTurn}`
-                    gameBoard.gameArray[e.target.dataset.index]=`${playerTurn}`
-                    console.log(gameBoard.gameArray)
+                    gameArray[e.target.dataset.index]=`${playerTurn}`
+                    console.log(gameArray)
                 };
             })
         })
@@ -63,6 +63,21 @@ const gameLogic = (() =>{
         let amountOfO = gameBoard.gameArray.filter(i => i==='O').length;
         if(!gameBoard.gameArray || amountOfX <= amountOfO) return playerTurn = 'X';
         else if(amountOfX > amountOfO) return playerTurn ='O';
+    }
+    const winCombinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ]
+    const checkForWinner = () => {
+        function storeInNewArray(){
+            
+        }
     }
     return{
         checkPlayerTurn,
