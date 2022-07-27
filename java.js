@@ -32,18 +32,17 @@ const gameBoard = (() => {
     const gameBoardEvents = (xSign, oSign) =>{
         gameTiles.forEach(tile => {
             tile.addEventListener('click', (e)=>{
+                if (gameLogic.checkForWinner() === 'done') return;
                 let playerTurn = gameLogic.checkPlayerTurn()
                 if(!!e.target.innerText) return;
+                gameLogic.checkForWinner(e.target, playerTurn);
                 if(playerTurn === 'X') {
                     e.target.innerText =`${playerTurn}`
                     gameArray[e.target.dataset.index]=`${playerTurn}`
-
-                    console.log(gameArray)
                 }
                 else if(playerTurn === 'O'){
                     e.target.innerText = `${playerTurn}`
                     gameArray[e.target.dataset.index]=`${playerTurn}`
-                    console.log(gameArray)
                 };
             })
         })
@@ -74,13 +73,39 @@ const gameLogic = (() =>{
         [0, 4, 8],
         [2, 4, 6]
     ]
-    const checkForWinner = () => {
-        function storeInNewArray(){
-            
+    const xIndexArray =[];
+    const oIndexArray = []; 
+    
+
+    const checkForWinner = (target, playerTurn) => {
+        let gameStatus;
+       storeInNewArray()
+       for (let i = 0; i < winCombinations.length; i++) {
+        if(xIndexArray.includes(winCombinations[i][0]) && xIndexArray.includes(winCombinations[i][1])
+             && xIndexArray.includes(winCombinations[i][2])) {
+            alert('X has won')
+            return gameStatus = 'done'
+            break;
         }
+           else if(oIndexArray.includes(winCombinations[i][0]) && oIndexArray.includes(winCombinations[i][1])
+           && oIndexArray.includes(winCombinations[i][2])) {
+               alert('O has won') 
+               return gameStatus ='done'
+               break;
+            }
+           
+       }
+        function storeInNewArray(){       
+        if(playerTurn === 'X') xIndexArray.push(Number(target.dataset.index))
+        else if(playerTurn === 'O') oIndexArray.push(Number(target.dataset.index))  
+        }
+        
     }
     return{
         checkPlayerTurn,
+        checkForWinner,
+        winCombinations,
+        xIndexArray,
     }
 })();
 
