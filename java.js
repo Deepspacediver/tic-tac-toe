@@ -38,8 +38,11 @@ const gameBoard = (() => {
                 let winningState = gameLogic.gameStatus
                 console.log(winningState)
                 if(!!e.target.innerText || gameLogic.gameStatus === 'done') return
-                let playerTurn = gameLogic.checkPlayerTurn()
+                gameLogic.checkPlayerTurn()
+                let playerTurn = gameLogic.playerTurn
                 gameLogic.checkForWinner(e.target, playerTurn);
+                
+                
                 if(playerTurn === 'X') {
                     e.target.innerText =`${playerTurn}`
                     gameArray[e.target.dataset.index]=`${playerTurn}`
@@ -60,12 +63,12 @@ const gameBoard = (() => {
 })();
 
 const gameLogic = (() =>{
+    let playerTurn='';
     const checkPlayerTurn = () =>{
-        let playerTurn;
         let amountOfX = gameBoard.gameArray.filter(i => i==='X').length;
         let amountOfO = gameBoard.gameArray.filter(i => i==='O').length;
-        if(!gameBoard.gameArray || amountOfX <= amountOfO) return playerTurn = 'X';
-        else if(amountOfX > amountOfO) return playerTurn ='O';
+        if(!gameBoard.gameArray.length === 0 || amountOfX <= amountOfO)  gameLogic.playerTurn = 'X';
+        else if(amountOfX > amountOfO)  gameLogic.playerTurn ='O';
     }
     const winCombinations = [
         [0, 1, 2],
@@ -118,7 +121,8 @@ const gameLogic = (() =>{
         winCombinations,
         xIndexArray,
         oIndexArray,
-        gameStatus
+        gameStatus,
+        playerTurn
     }
 })();
 
