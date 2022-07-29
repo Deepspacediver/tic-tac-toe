@@ -1,4 +1,5 @@
 console.log("hello world")
+let gameStatus;
 
 const Player = (sign) => {
     const playingSign = sign;
@@ -29,12 +30,15 @@ const gameBoard = (() => {
             
         }
     }
+   
     const gameBoardEvents = (xSign, oSign) =>{
         gameTiles.forEach(tile => {
             tile.addEventListener('click', (e)=>{
-                if (gameLogic.checkForWinner() === 'done') return;
+
+                let winningState = gameLogic.gameStatus
+                console.log(winningState)
+                if(!!e.target.innerText || gameLogic.gameStatus === 'done') return
                 let playerTurn = gameLogic.checkPlayerTurn()
-                if(!!e.target.innerText) return;
                 gameLogic.checkForWinner(e.target, playerTurn);
                 if(playerTurn === 'X') {
                     e.target.innerText =`${playerTurn}`
@@ -73,27 +77,29 @@ const gameLogic = (() =>{
         [0, 4, 8],
         [2, 4, 6]
     ]
-    const xIndexArray =[];
-    const oIndexArray = []; 
-    
+    let xIndexArray =[];
+    let oIndexArray = []; 
+    let gameStatus ='';
 
     const checkForWinner = (target, playerTurn) => {
-        let gameStatus;
+        
        storeInNewArray()
        for (let i = 0; i < winCombinations.length; i++) {
         if(xIndexArray.includes(winCombinations[i][0]) && xIndexArray.includes(winCombinations[i][1])
              && xIndexArray.includes(winCombinations[i][2])) {
-            alert('X has won')
-            return gameStatus = 'done'
+                gameLogic.gameStatus ='done'
+                alert('X has won')
             break;
+             
         }
            else if(oIndexArray.includes(winCombinations[i][0]) && oIndexArray.includes(winCombinations[i][1])
            && oIndexArray.includes(winCombinations[i][2])) {
-               alert('O has won') 
-               return gameStatus ='done'
+            gameLogic.gameStatus ='done'   
+            alert('O has won') 
+               
                break;
-            }
-           
+               
+            } 
        }
         function storeInNewArray(){       
         if(playerTurn === 'X') xIndexArray.push(Number(target.dataset.index))
@@ -101,11 +107,18 @@ const gameLogic = (() =>{
         }
         
     }
+
+    const resetGame = ()=>{
+        xIndexArray =[];
+        oIndexArray = [];
+    }
     return{
         checkPlayerTurn,
         checkForWinner,
         winCombinations,
         xIndexArray,
+        oIndexArray,
+        gameStatus
     }
 })();
 
