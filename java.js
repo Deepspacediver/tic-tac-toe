@@ -33,7 +33,12 @@ const gameBoard = (() => {
     }
     const choosePlayer = () =>{
         const playerButtonContainer = document.querySelector('.player-container')
-        console.log(playerButtonContainer)
+        playerButtonContainer.addEventListener('click', (e)=>{
+            if(e.target.className === "player1") {
+                let newPlayer1Name = String(window.prompt('Please input your player name', 'X'))
+                console.log(newPlayer1Name)
+            }
+        })
     }
     const gameBoardEvents = (xSign='X', oSign='O') =>{
         gameTiles.forEach(tile => {
@@ -117,9 +122,9 @@ const gameLogic = (() =>{
     let oIndexArray = []; 
     let gameStatus ='';
 
-    const checkForWinner = (target, xSign=`X`, oSign="O") => {
+    const checkForWinner = (target, xSign=`X`, oSign=`O`) => {
         
-       storeInNewArray()
+       storeInNewArray(gameLogic.playerTurn)
        for (let i = 0; i < winCombinations.length; i++) {
         if(xIndexArray.includes(winCombinations[i][0]) && xIndexArray.includes(winCombinations[i][1])
              && xIndexArray.includes(winCombinations[i][2])) {
@@ -137,7 +142,7 @@ const gameLogic = (() =>{
                
             } 
        }
-        function storeInNewArray(){       
+        function storeInNewArray(playerTurn){       
         if(playerTurn === `${xSign}` || playerTurn ==='') xIndexArray.push(Number(target.dataset.index))
         else if(playerTurn === `${oSign}`) oIndexArray.push(Number(target.dataset.index))  
         }
