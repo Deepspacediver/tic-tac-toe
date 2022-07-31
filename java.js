@@ -8,8 +8,8 @@ const Player = (sign) => {
     }
 }
 
-const playerX= Player('Player un')
-const playerO = Player('Player do')
+let playerX= Player('Player un')
+let playerO = Player('Player do')
 
 
 const gameBoard = (() => {
@@ -33,12 +33,14 @@ const gameBoard = (() => {
     }
     const choosePlayer = () =>{
         const playerButtonContainer = document.querySelector('.player-container')
-        playerButtonContainer.addEventListener('click', (e)=>{
-            if(e.target.className === "player1") {
-                let newPlayer1Name = String(window.prompt('Please input your player name', 'X'))
-                console.log(newPlayer1Name)
-            }
-        })
+
+            
+                let newPlayer1Name = String(window.prompt('Please input your player1 name', 'X'))
+                playerX = Player(newPlayer1Name)
+                let newPlayer2Name = String(window.prompt('Please input your player2 name', 'O'))
+                playerO = Player(newPlayer2Name)
+            
+        
     }
     const gameBoardEvents = (xSign='X', oSign='O') =>{
         gameTiles.forEach(tile => {
@@ -190,4 +192,3 @@ const playerMove = (sign, target) =>{
         })
     } 
  */
-
